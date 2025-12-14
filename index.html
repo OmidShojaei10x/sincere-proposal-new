@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پروپوزال تبلیغاتی رستوران سینسیر | یکتانت</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Chart.js for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/yektanet-theme.css">
+    <link rel="stylesheet" href="assets/css/print.css" media="print">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'yektanet-gold': '#fed813',
+                        'yektanet-saffron': '#f3c42e',
+                        'yektanet-jet': '#323232',
+                        'yektanet-smoke': '#f2f2f2',
+                        'yektanet-keppel': '#2fbea8',
+                        'yektanet-aqua': '#3de19c',
+                    },
+                    fontFamily: {
+                        'sans': ['Sahel', 'IRANSans', 'Tahoma', 'Arial', 'sans-serif'],
+                        'iran': ['Sahel', 'IRANSans', 'Tahoma', 'Arial', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-yektanet-smoke text-yektanet-jet antialiased" style="font-family: \'Sahel\', sans-serif;">
+
+    <!-- Loading Screen -->
+    <div id="loading-screen" class="fixed inset-0 bg-yektanet-jet z-50 flex items-center justify-center">
+        <div class="text-center">
+            <img src="assets/images/logo/yektanet-logo.svg" alt="Yektanet" class="w-32 h-32 mx-auto mb-4 animate-pulse">
+            <div class="text-yektanet-gold text-xl">در حال بارگذاری...</div>
+        </div>
+    </div>
+
+    <!-- Compact Header -->
+    <header class="relative z-40 px-4 pt-4 mb-4">
+        <div class="container mx-auto max-w-6xl">
+            <div class="summary-header rounded-2xl text-white relative overflow-hidden px-4 py-3 shadow-lg">
+                <div class="hero-glow hero-glow-gold"></div>
+                <div class="hero-glow hero-glow-teal"></div>
+                <div class="relative z-10 flex items-center justify-between gap-4">
+                    <div class="flex items-center gap-3">
+                        <div class="flex items-center gap-2 px-3 py-1 rounded-xl bg-white/10 border border-white/20">
+                            <img src="assets/images/logo/yektanet-logo.svg" alt="Yektanet" class="h-7">
+                            <img src="assets/images/sincere/sincere-logo.png" alt="Sincere" class="h-7">
+                        </div>
+                        <span class="text-sm md:text-base font-bold">خلاصه پیشنهادی کمپین</span>
+                    </div>
+                    <button onclick="exportToPDF()" class="flex items-center gap-2 text-sm px-3 py-2 rounded-lg bg-white/10 border border-white/20 hover:bg-white/15 transition">
+                        📄 خروجی PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-12">
+        <div class="container mx-auto px-4 max-w-7xl">
+            
+            <!-- Overview Snapshot -->
+            <section id="overview" class="mb-10" data-aos="fade-up">
+                <div class="hero-shell rounded-3xl text-white relative overflow-hidden p-6 md:p-8">
+                    <div class="hero-glow hero-glow-gold"></div>
+                    <div class="hero-glow hero-glow-teal"></div>
+                    <div class="relative z-10 space-y-6">
+                        <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                            <div>
+                                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 text-sm">
+                                    📄 خلاصه پیشنهادی همکاری
+                                </div>
+                                <h1 class="text-2xl md:text-3xl font-black leading-tight mt-2">
+                                    کمپین تبلیغات آنلاین | رستوران سینسیر
+                                </h1>
+                                <div class="flex items-center gap-4 mt-3">
+                                    <img src="assets/images/logo/yektanet-logo.svg" alt="Yektanet" class="h-10">
+                                    <img src="assets/images/sincere/sincere-logo.png" alt="Sincere" class="h-10">
+                                </div>
+                            </div>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 w-full lg:w-auto">
+                                <div class="hero-meta text-center">
+                                    <div class="text-xs text-gray-300">مدت</div>
+                                    <div class="text-xl font-bold text-white editable-text" data-field="duration">۴ ماه</div>
+                                </div>
+                                <div class="hero-meta text-center">
+                                    <div class="text-xs text-gray-300">ارزش کل</div>
+                                    <div class="text-xl font-bold text-white editable-text" data-field="total-value">۱,۸۰۰,۰۰۰,۰۰۰</div>
+                                </div>
+                                <div class="hero-meta text-center">
+                                    <div class="text-xs text-gray-300">نوع کمپین</div>
+                                    <div class="text-xl font-bold text-white">تبلیغات آنلاین</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">📈</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">KPI پیش‌بینی</div>
+                                    <div class="text-white font-semibold">۱۲M نمایش / ۱۲۰K کلیک</div>
+                                </div>
+                            </div>
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">🎯</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">رشد فالوور</div>
+                                    <div class="text-white font-semibold">+۲۷K هدفمند</div>
+                                </div>
+                            </div>
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">🛎️</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">رزرو/فروش</div>
+                                    <div class="text-white font-semibold">۸-۱۲٪</div>
+                                </div>
+                            </div>
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">💹</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">پیش‌بینی ROI</div>
+                                    <div class="text-white font-semibold">~۲.۳x بازگشت</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid md:grid-cols-4 gap-4">
+                            <div class="hero-mini-card col-span-2 md:col-span-2">
+                                <div class="mini-icon">💰</div>
+                                <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 w-full">
+                                    <div>
+                                        <div class="text-xs text-gray-300">توزیع بودجه</div>
+                                        <div class="text-white font-semibold">۴۵٪ رسانه | ۳۵٪ محتوا | ۲۰٪ ابزار</div>
+                                    </div>
+                                    <div class="w-36 h-36 md:w-40 md:h-40 bg-white/10 border border-white/15 rounded-xl p-2 mx-auto">
+                                        <canvas id="budget-donut" aria-label="نمودار بودجه" style="width:100%;height:100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">🕑</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">تایم‌لاین ۴ ماهه</div>
+                                    <div class="text-white font-semibold">استارت، تولید، توزیع، بهینه‌سازی</div>
+                                </div>
+                            </div>
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">🤝</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">ارائه‌دهنده</div>
+                                    <div class="text-white font-semibold">شرکت یکتانت</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-white/10 border border-white/20 rounded-2xl p-4 text-sm text-gray-100 leading-6 flex gap-2">
+                            <span class="text-lg">⚠️</span>
+                            <span>اعداد فوق پیش‌بینی استاندارد هستند و بسته به بازار متغیرند؛ گزارش شفاف هفتگی ارائه می‌شود.</span>
+                        </div>
+
+                        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+                            <div class="text-sm text-gray-200">برای جزئیات کامل، ادامه صفحه را ببینید.</div>
+                            <a href="proposal-full.html" class="inline-flex items-center justify-center px-5 py-3 rounded-xl bg-yektanet-gold text-yektanet-jet font-bold shadow hover:shadow-lg hover:-translate-y-0.5 transition">
+                                مشاهده جزئیات کامل
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Hero Section -->
+            <section id="hero" class="mb-12" data-aos="fade-up">
+                <div class="hero-shell rounded-3xl text-white relative overflow-hidden">
+                    <div class="hero-pattern absolute inset-0 opacity-20">
+                        <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                            <pattern id="hexagons" x="0" y="0" width="50" height="43.4" patternUnits="userSpaceOnUse">
+                                <path d="M25 0l21.65 12.5v25L25 50 3.35 37.5v-25z" fill="none" stroke="currentColor" stroke-width="0.5"/>
+                            </pattern>
+                            <rect width="100%" height="100%" fill="url(#hexagons)"/>
+                        </svg>
+                    </div>
+                    <div class="hero-glow hero-glow-gold"></div>
+                    <div class="hero-glow hero-glow-teal"></div>
+
+                    <div class="relative z-10 p-8 md:p-12">
+                        <div class="flex flex-col lg:flex-row items-start lg:items-center gap-10">
+                            <div class="flex-1 space-y-5">
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <div class="hero-badge">
+                                        <span class="badge-dot"></span>
+                                        <span>پیشنهاد ویژه یکتانت</span>
+                                    </div>
+                                </div>
+
+                                <h1 class="hero-title text-3xl md:text-5xl font-black">
+                                    <span>پروپوزال تبلیغاتی</span>
+                                    <span class="text-yektanet-gold">رستوران سینسیر</span>
+                                </h1>
+
+                                <p class="text-lg md:text-xl text-gray-200 max-w-2xl leading-relaxed">
+                                    تبدیل یک رستوران لوکس به یک برند ماندگار
+                                </p>
+
+                                <div class="flex flex-wrap gap-3 text-sm md:text-base">
+                                    <div class="hero-pill">
+                                        <span class="pill-icon">📅</span>
+                                        <div>مدت: <span class="font-bold editable-text" data-field="duration">۴ ماه</span></div>
+                                    </div>
+                                    <div class="hero-pill">
+                                        <span class="pill-icon">💰</span>
+                                        <div>ارزش: <span class="font-bold editable-text" data-field="total-value">۱,۸۰۰,۰۰۰,۰۰۰</span> تومان</div>
+                                    </div>
+                                    <div class="hero-pill">
+                                        <span class="pill-icon">📍</span>
+                                        <div>شروع: <span class="font-bold editable-text" data-field="start-date">اواسط دی ۱۴۰۴</span></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-full lg:w-72 xl:w-80">
+                                <div class="hero-side-card rounded-2xl p-6">
+                                    <div class="flex items-center justify-between gap-4 mb-6">
+                                        <img src="assets/images/logo/yektanet-logo.svg" alt="Yektanet" class="h-12 md:h-14">
+                                        <img src="assets/images/sincere/sincere-logo.png" alt="Sincere Restaurant" class="h-14 md:h-16 editable-logo" data-logo-type="sincere">
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-3 text-sm text-gray-100">
+                                        <div class="hero-meta">
+                                            <div class="text-xs text-gray-300">ارائه‌دهنده</div>
+                                            <div class="font-bold text-white mt-1">شرکت یکتانت</div>
+                                        </div>
+                                        <div class="hero-meta">
+                                            <span class="text-xs text-gray-300">ارائه</span>
+                                            <span class="font-bold text-white editable-text" data-field="presentation-date">آذر ۱۴۰۴</span>
+                                        </div>
+                                        <div class="hero-meta">
+                                            <div class="text-xs text-gray-300">نوع کمپین</div>
+                                            <div class="font-semibold text-white mt-1">تبلیغات آنلاین</div>
+                                        </div>
+                                        <div class="hero-meta">
+                                            <span class="text-xs text-gray-300">نسخه</span>
+                                            <span class="font-semibold text-white">۱.۰</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid sm:grid-cols-3 gap-3 mt-8">
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">⭐</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">هدف اصلی</div>
+                                    <div class="text-white font-semibold">برندسازی لوکس</div>
+                                </div>
+                            </div>
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">🎯</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">تمرکز کمپین</div>
+                                    <div class="text-white font-semibold">دیده‌شدن گسترده</div>
+                                </div>
+                            </div>
+                            <div class="hero-mini-card">
+                                <div class="mini-icon">🤝</div>
+                                <div>
+                                    <div class="text-xs text-gray-300">ارائه‌دهنده</div>
+                                    <div class="text-white font-semibold">شرکت یکتانت</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Disclaimer -->
+            <section class="mb-8" data-aos="fade-up">
+                <div class="bg-amber-50 border-2 border-amber-300 rounded-2xl p-5 flex gap-3">
+                    <div class="text-2xl">⚠️</div>
+                    <div class="text-sm leading-7 text-gray-800">
+                        توجه مهم: تمامی اعداد و ارقام ذکر شده در این سند (تعداد نمایش، کلیک، بازدید، سفارش و فروش) پیش‌بینی‌هایی بر اساس میانگین‌های صنعت و فرضیات استاندارد هستند. عملکرد واقعی کمپین می‌تواند بسته به عوامل متعددی از جمله کیفیت محصول، رقابت بازار، فصل سال و رفتار مخاطب متفاوت باشد. تیم یکتانت متعهد است تمام تلاش خود را برای دستیابی به این اهداف و حتی فراتر از آن به کار گیرد و گزارش‌های شفاف هفتگی از پیشرفت کار ارائه دهد.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Table of Contents -->
+            <section id="toc" class="mb-10" data-aos="fade-up">
+                <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                    <div class="flex items-center gap-3 mb-6">
+                        <span class="text-yektanet-gold text-2xl">📋</span>
+                        <h2 class="text-2xl font-bold">فهرست مطالب</h2>
+                    </div>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <a href="#summary" class="toc-item group">
+                            <span class="toc-number">۱</span>
+                            <span class="toc-title">خلاصه اجرایی</span>
+                        </a>
+                        <a href="#analysis" class="toc-item group">
+                            <span class="toc-number">۲</span>
+                            <span class="toc-title">تحلیل وضعیت فعلی</span>
+                        </a>
+                        <a href="#goals" class="toc-item group">
+                            <span class="toc-number">۳</span>
+                            <span class="toc-title">اهداف کمپین</span>
+                        </a>
+                        <a href="#strategy" class="toc-item group">
+                            <span class="toc-number">۴</span>
+                            <span class="toc-title">استراتژی پیشنهادی</span>
+                        </a>
+                        <a href="#services" class="toc-item group">
+                            <span class="toc-number">۵</span>
+                            <span class="toc-title">خدمات ارائه شده</span>
+                        </a>
+                        <a href="#timeline" class="toc-item group">
+                            <span class="toc-number">۶</span>
+                            <span class="toc-title">تقویم اجرایی</span>
+                        </a>
+                        <a href="#budget" class="toc-item group">
+                            <span class="toc-number">۷</span>
+                            <span class="toc-title">بودجه‌بندی</span>
+                        </a>
+                        <a href="#kpis" class="toc-item group">
+                            <span class="toc-number">۸</span>
+                            <span class="toc-title">KPIs و معیارها</span>
+                        </a>
+                        <a href="#checklist" class="toc-item group">
+                            <span class="toc-number">۹</span>
+                            <span class="toc-title">چک‌لیست مورد نیاز</span>
+                        </a>
+                    </div>
+                    <div class="comment-section mt-4" data-section="toc"></div>
+                </div>
+            </section>
+
+            <div id="content-sections" class="space-y-10" data-aos="fade-up">
+                <div class="text-center text-gray-500 py-10">در حال بارگذاری محتوای پروپوزال...</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="mt-12 border-t border-gray-200">
+        <div class="container mx-auto px-4 py-6 text-center text-sm text-gray-500">
+            © ۱۴۰۴ شرکت یکتانت 
+        </div>
+    </footer>
+
+    <div class="snackbar" id="snackbar">تغییرات ذخیره شد</div>
+
+    <!-- Comment Sidebar removed for summary page -->
+
+    <!-- Scripts -->
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/comments.js"></script>
+    <script src="assets/js/animations.js"></script>
+
+    <script>
+        // Initialize AOS
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 100
+            });
+        }
+
+        // Hide loading screen - با fallback برای اطمینان از پنهان شدن
+        function hideLoadingScreen() {
+            const loadingScreen = document.getElementById('loading-screen');
+            if (loadingScreen) {
+                loadingScreen.style.opacity = '0';
+                setTimeout(() => {
+                    loadingScreen.style.display = 'none';
+                }, 300);
+            }
+        }
+
+        // چند روش برای پنهان کردن loading screen
+        if (document.readyState === 'complete') {
+            setTimeout(hideLoadingScreen, 1000);
+        } else {
+            window.addEventListener('load', () => {
+                setTimeout(hideLoadingScreen, 1000);
+            });
+        }
+
+        // Fallback: اگر بعد از 3 ثانیه هنوز loading است، آن را پنهان کن
+        setTimeout(hideLoadingScreen, 3000);
+    </script>
+</body>
+</html>

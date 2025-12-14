@@ -1,0 +1,75 @@
+/* Print Styles for PDF Export */
+
+@media print {
+    /* Hide non-printable elements */
+    nav, footer, #comment-sidebar, .comment-section, 
+    button, .no-print {
+        display: none !important;
+    }
+
+    /* Reset margins */
+    body {
+        margin: 0;
+        padding: 0;
+        background: white;
+    }
+
+    main {
+        padding-top: 0;
+    }
+
+    /* Page breaks */
+    section {
+        page-break-inside: avoid;
+    }
+
+    h1, h2, h3 {
+        page-break-after: avoid;
+    }
+
+    /* Adjust colors for print */
+    * {
+        color: #000 !important;
+        background: white !important;
+    }
+
+    .bg-yektanet-jet,
+    .bg-gradient-to-br {
+        background: #f5f5f5 !important;
+        border: 2px solid #ddd !important;
+    }
+
+    /* Charts */
+    canvas {
+        max-width: 100%;
+        height: auto !important;
+    }
+
+    /* Tables */
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+    th, td {
+        border: 1px solid #ddd;
+        padding: 8px;
+        text-align: right;
+    }
+
+    /* Logo */
+    .editable-logo {
+        max-height: 60px;
+    }
+
+    /* Links */
+    a {
+        text-decoration: none;
+    }
+
+    a[href]:after {
+        content: " (" attr(href) ")";
+        font-size: 0.8em;
+        color: #666 !important;
+    }
+}

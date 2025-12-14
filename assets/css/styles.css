@@ -1,0 +1,98 @@
+/* فونت Sahel یکتانت */
+@font-face {
+    font-family: 'Sahel';
+    src: url('../../assets/fonts/font sahel/Sahel.woff') format('woff'),
+         url('../../assets/fonts/font sahel/Sahel.ttf') format('truetype');
+    font-weight: normal;
+}
+@font-face {
+    font-family: 'Sahel';
+    src: url('../../assets/fonts/font sahel/Sahel-Bold.woff') format('woff'),
+         url('../../assets/fonts/font sahel/Sahel-Bold.ttf') format('truetype');
+    font-weight: bold;
+}
+@font-face {
+    font-family: 'Sahel';
+    src: url('../../assets/fonts/font sahel/Sahel-Black.woff') format('woff'),
+         url('../../assets/fonts/font sahel/Sahel-Black.ttf') format('truetype');
+    font-weight: 900;
+}
+* { font-family: 'Sahel', 'Vazirmatn', sans-serif; }
+:root {
+    --gold-web: #fed813;
+    --saffron: #f3c42e;
+    --jet: #323232;
+    --white-smoke: #f2f2f2;
+    --keppel: #2fbea8;
+    --aquamarine: #3de19c;
+    --honey: #ffb113;
+    --french-pink: #fd6f95;
+}
+body { background: #f2f2f2; }
+.yektanet-pattern { 
+    background-image: repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(254,216,19,0.03) 10px, rgba(254,216,19,0.03) 20px);
+}
+.yektanet-gold { background: linear-gradient(135deg, #fed813 0%, #f3c42e 100%); }
+.yektanet-dark { background-color: #323232; color: white; }
+.editable-number { border-bottom: 2px dashed #f3c42e; cursor: pointer; transition: all 0.3s; padding: 2px 8px; border-radius: 6px; }
+.editable-number:hover { background-color: #fff9e6; }
+.editable-number::after { content: '✎'; font-size: 11px; color: #f3c42e; margin-right: 6px; opacity: 0.7; }
+.comment-box { position: relative; margin-top: 8px; }
+.comment-toggle { background: #fed813; color: #323232; border: none; padding: 4px 12px; border-radius: 20px; font-size: 11px; cursor: pointer; transition: all 0.3s; }
+.comment-toggle:hover { background: #f3c42e; transform: scale(1.05); }
+.comment-input { display: none; margin-top: 8px; width: 100%; padding: 8px; border: 2px solid #fed813; border-radius: 8px; resize: vertical; }
+.comment-input.active { display: block; }
+.section-card { background: white; border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 6px solid #fed813; position: relative; transition: all 0.3s; }
+.section-card:hover { box-shadow: 0 8px 16px rgba(254,216,19,0.15); transform: translateY(-2px); }
+.disclaimer { background: #fff9e6; border-left: 4px solid #ffb113; padding: 12px 16px; border-radius: 8px; margin: 12px 0; font-size: 14px; color: #666; }
+.stat-box { background: linear-gradient(135deg, #fed813 0%, #f3c42e 100%); color: #323232; padding: 16px; border-radius: 12px; text-align: center; transition: transform 0.3s; }
+.stat-box:hover { transform: translateY(-4px); }
+input[type="checkbox"] { width: 20px; height: 20px; accent-color: #fed813; }
+.progress-bar { height: 8px; background: #e0e0e0; border-radius: 10px; overflow: hidden; }
+.progress-fill { height: 100%; background: linear-gradient(90deg, #fed813 0%, #f3c42e 100%); transition: width 0.5s; }
+.hero-image { width: 100%; height: 400px; object-fit: cover; border-radius: 16px; }
+.logo-yektanet { max-width: 180px; height: auto; }
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th, td { padding: 12px; text-align: right; border-bottom: 1px solid #e0e0e0; }
+th { background: #fed813; color: #323232; font-weight: 700; }
+tr:hover { background: #f9f9f9; }
+.timeline-item { position: relative; padding-right: 30px; padding-bottom: 20px; border-right: 3px solid #fed813; }
+.timeline-item::before { content: ''; position: absolute; right: -8px; top: 0; width: 14px; height: 14px; background: #fed813; border-radius: 50%; }
+.file-upload-area { border: 2px dashed #fed813; border-radius: 12px; padding: 24px; text-align: center; cursor: pointer; transition: all 0.3s; }
+.file-upload-area:hover { background: #fff9e6; border-color: #f3c42e; }
+@media print { .no-print { display: none; } }
+.sticky-header { position: sticky; top: 0; background: white; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+/* Header Hero Redesign */
+.header-hero { background: linear-gradient(135deg, rgba(50,50,50,0.92), rgba(50,50,50,0.78)), url('../images/gallery/535098482_18522030160012008_5904714870603866204_n.webp'); background-size: cover; background-position: center; border-bottom: 6px solid #fed813; position: relative; overflow: hidden; }
+.header-hero::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 20% 20%, rgba(254,216,19,0.15), transparent 40%), radial-gradient(circle at 80% 0%, rgba(243,196,46,0.2), transparent 35%); pointer-events: none; }
+.glass-card { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); box-shadow: 0 10px 40px rgba(0,0,0,0.2); backdrop-filter: blur(14px); }
+.budget-card { background: linear-gradient(135deg, #fed813, #f3c42e); color: #323232; box-shadow: 0 12px 30px rgba(0,0,0,0.2); }
+.meta-chip { background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.18); color: #f2f2f2; padding: 10px 14px; border-radius: 14px; font-size: 13px; display: inline-flex; align-items: center; gap: 8px; }
+.badge-dot { width: 10px; height: 10px; border-radius: 999px; background: #2fbea8; box-shadow: 0 0 0 6px rgba(47,190,168,0.25); }
+.hero-stat { border-left: 1px solid rgba(255,255,255,0.12); }
+@media (max-width: 768px) { .hero-stat { border-left: none; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 10px; } }
+.tag-guess { background: rgba(253, 111, 149, 0.15); color: #b12a4b; border: 1px solid rgba(253, 111, 149, 0.3); padding: 2px 8px; border-radius: 999px; font-size: 11px; display: inline-flex; align-items: center; gap: 4px; }
+.top-progress { position: fixed; top: 0; right: 0; left: 0; height: 4px; z-index: 120; background: #e5e5e5; }
+.top-progress .fill { height: 100%; width: 0; background: linear-gradient(90deg, #fed813, #f3c42e); transition: width 0.2s ease; }
+.floating-nav { position: sticky; top: 4px; z-index: 110; backdrop-filter: blur(14px); background: rgba(255,255,255,0.9); border: 1px solid rgba(0,0,0,0.05); box-shadow: 0 8px 30px rgba(0,0,0,0.08); border-radius: 16px; padding: 10px 12px; }
+.floating-nav a { padding: 8px 14px; border-radius: 12px; font-size: 13px; color: #323232; white-space: nowrap; transition: all 0.3s; }
+.floating-nav a:hover { background: rgba(254,216,19,0.2); }
+.floating-nav a.active { background: #fed813; color: #1f1f1f; box-shadow: inset 0 0 0 1px rgba(0,0,0,0.05); }
+.snackbar { position: fixed; bottom: 20px; right: 20px; background: #323232; color: #fff; padding: 12px 16px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); opacity: 0; pointer-events: none; transition: opacity 0.3s, transform 0.3s; transform: translateY(10px); z-index: 200; }
+.snackbar.show { opacity: 1; transform: translateY(0); }
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; align-items: center; justify-content: center; z-index: 150; }
+.modal { background: rgba(255,255,255,0.96); border-radius: 16px; padding: 20px; width: min(900px, 92vw); max-height: 90vh; overflow-y: auto; box-shadow: 0 20px 60px rgba(0,0,0,0.25); }
+.modal-close { position: absolute; top: 10px; left: 14px; cursor: pointer; font-weight: bold; color: #555; }
+/* موبایل فرندلی */
+@media (max-width: 768px) {
+    .floating-nav { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    .floating-nav::-webkit-scrollbar { display: none; }
+    .section-card { padding: 16px; margin-bottom: 16px; }
+    .header-hero { padding: 20px 0; }
+    .glass-card { padding: 20px; }
+    .budget-card { padding: 20px; }
+    .hero-image { height: 250px; }
+    table { font-size: 12px; }
+    th, td { padding: 8px 4px; }
+}
+

@@ -1,0 +1,51 @@
+{
+  "budget": {
+    "total": 1800000000,
+    "content": 250000000,
+    "website": 450000000,
+    "photo": 180000000,
+    "video": 200000000,
+    "management": 120000000,
+    "ads-ig": 185000000,
+    "media": 190000000,
+    "seo": 70000000,
+    "events": 80000000,
+    "loyalty": 75000000
+  },
+  "goals": {
+    "followers": {
+      "current": 143000,
+      "target": 170000
+    },
+    "rating": {
+      "current": 3.8,
+      "target": 4.3
+    },
+    "reviews": {
+      "current": 208,
+      "target": 350
+    },
+    "engagement": "4-6",
+    "traffic": 25000,
+    "loyalty": 2000,
+    "video-views": 500000
+  },
+  "services": {
+    "posts": 80,
+    "reels": 32,
+    "stories": 600,
+    "photos": 180,
+    "videos": 12,
+    "articles": 4,
+    "banners": 8,
+    "video-ads": 2,
+    "events": 8
+  },
+  "project": {
+    "duration": "4 ماه",
+    "start": "اواخر دی ۱۴۰۴",
+    "preparation": "آذر ۱۴۰۴",
+    "deadline": "۷ آذر ۱۴۰۴"
+  }
+}
+
