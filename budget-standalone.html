@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بودجه‌بندی کامل و تفصیلی - پرپوزال تبلیغاتی رستوران سینسیر</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Chart.js for interactive charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
+    <!-- AOS Animation Library -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+    <!-- Custom CSS -->
+    <style>
+        /* Yektanet Brand Identity Styles */
+        :root {
+            --yektanet-gold: #fed813;
+            --yektanet-saffron: #f3c42e;
+            --yektanet-jet: #323232;
+            --yektanet-smoke: #f2f2f2;
+            --yektanet-keppel: #2fbea8;
+            --yektanet-aqua: #3de19c;
+        }
+
+        /* Typography - فونت Sahel یکتانت */
+        @font-face {
+            font-family: 'Sahel';
+            src: url('assets/fonts/font sahel/Sahel.eot');
+            src: url('assets/fonts/font sahel/Sahel.eot?#iefix') format('embedded-opentype'),
+                 url('assets/fonts/font sahel/Sahel.woff') format('woff'),
+                 url('assets/fonts/font sahel/Sahel.ttf') format('truetype');
+            font-weight: normal;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Sahel';
+            src: url('assets/fonts/font sahel/Sahel-Bold.eot');
+            src: url('assets/fonts/font sahel/Sahel-Bold.eot?#iefix') format('embedded-opentype'),
+                 url('assets/fonts/font sahel/Sahel-Bold.woff') format('woff'),
+                 url('assets/fonts/font sahel/Sahel-Bold.ttf') format('truetype');
+            font-weight: bold;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Sahel';
+            src: url('assets/fonts/font sahel/Sahel-Black.eot');
+            src: url('assets/fonts/font sahel/Sahel-Black.eot?#iefix') format('embedded-opentype'),
+                 url('assets/fonts/font sahel/Sahel-Black.woff') format('woff'),
+                 url('assets/fonts/font sahel/Sahel-Black.ttf') format('truetype');
+            font-weight: 900;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        body, * {
+            font-family: 'Sahel', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+            font-size: 101%;
+        }
+
+        /* Editable Elements */
+        .editable-text, .editable-number {
+            position: relative;
+            padding: 2px 6px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            cursor: text;
+            display: inline-block;
+            min-width: 20px;
+        }
+
+        .editable-text:hover, .editable-number:hover {
+            background-color: rgba(254, 216, 19, 0.1);
+            outline: 2px dashed var(--yektanet-gold);
+        }
+
+        .editable-text[contenteditable="true"], .editable-number[contenteditable="true"] {
+            background-color: rgba(254, 216, 19, 0.2);
+            outline: 2px solid var(--yektanet-gold);
+            cursor: text;
+        }
+
+        .editable-number-active {
+            position: relative;
+        }
+
+        .editable-number-active::after {
+            content: '✏️';
+            position: absolute;
+            right: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 10px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .editable-number-active:hover::after {
+            opacity: 0.5;
+        }
+
+        /* Charts */
+        .chart-container {
+            position: relative;
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            margin-bottom: 24px;
+        }
+
+        /* Comment Section */
+        .comment-section {
+            position: relative;
+            min-height: 40px;
+            border: 2px dashed transparent;
+            border-radius: 8px;
+            padding: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .comment-section:hover {
+            border-color: var(--yektanet-gold);
+            background-color: rgba(254, 216, 19, 0.05);
+        }
+
+        .comment-section::before {
+            content: '💬 افزودن کامنت';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 12px;
+            color: #999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .comment-section:hover::before {
+            opacity: 1;
+        }
+
+        .comment-section.has-comments::before {
+            display: none;
+        }
+
+        .comment-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: var(--yektanet-saffron);
+            color: var(--yektanet-jet);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Selection */
+        ::selection {
+            background: var(--yektanet-gold);
+            color: var(--yektanet-jet);
+        }
+
+        /* Redesign Overrides */
+        body {
+            background: radial-gradient(circle at 20% 20%, rgba(254,216,19,0.08), transparent 32%), radial-gradient(circle at 80% 0%, rgba(47,190,168,0.08), transparent 28%), linear-gradient(135deg, #0f172a 0%, #111827 30%, #0b1220 100%);
+            color: var(--yektanet-smoke);
+        }
+
+        /* Budget specific styles */
+        .budget-item {
+            transition: all 0.3s ease;
+        }
+
+        .budget-item:hover {
+            transform: translateX(-2px);
+        }
+
+        /* Capacity row animation */
+        @keyframes pulse-capacity {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .capacity-highlight {
+            animation: pulse-capacity 2s infinite;
+        }
+    </style>
+
+    <!-- Tailwind Custom Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'yektanet-gold': '#fed813',
+                        'yektanet-saffron': '#f3c42e',
+                        'yektanet-jet': '#323232',
+                        'yektanet-smoke': '#f2f2f2',
+                        'yektanet-keppel': '#2fbea8',
+                        'yektanet-aqua': '#3de19c',
+                    },
+                    fontFamily: {
+                        'sans': ['Sahel', 'IRANSans', 'Tahoma', 'Arial', 'sans-serif'],
+                        'iran': ['Sahel', 'IRANSans', 'Tahoma', 'Arial', 'sans-serif'],
+                        'playfair': ['Playfair Display', 'serif'],
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans bg-yektanet-smoke text-yektanet-jet antialiased" style="font-family: 'Sahel', sans-serif; direction: rtl;">
+
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-8">
+        <div class="container mx-auto px-4">
+            <div class="flex items-center justify-between mb-6">
+                <img src="assets/images/logo/yektanet-logo.svg" alt="Yektanet" class="h-16">
+                <img src="assets/images/sincere/sincere-logo.png" alt="Sincere" class="h-16">
+            </div>
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold mb-4">بودجه‌بندی کامل و تفصیلی</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Budget Section -->
+    <section id="budget" class="py-12">
+        <div class="container mx-auto px-4">
+            <div class="bg-white rounded-2xl shadow-lg p-6 md:p-8">
+                <!-- Budget Breakdown Table -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-xl mb-4">جدول تفصیلی بودجه</h3>
+
+                    <div class="overflow-x-auto">
+                        <table class="w-full border-collapse">
+                            <thead>
+                                <tr class="bg-gradient-to-r from-yellow-400 to-amber-500 text-white">
+                                    <th class="p-4 text-right">ردیف</th>
+                                    <th class="p-4 text-right">خدمت</th>
+                                    <th class="p-4 text-right">توضیحات</th>
+                                    <th class="p-4 text-right">مبلغ (تومان)</th>
+                                    <th class="p-4 text-right">درصد</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y">
+                                <tr class="hover:bg-yellow-50 transition">
+                                    <td class="p-4 font-bold">۱</td>
+                                    <td class="p-4 font-bold">تولید محتوای اینستاگرام</td>
+                                    <td class="p-4 text-sm text-gray-600">
+                                        <span class="editable-text" data-field="desc-social">۸ عدد پست گرافیکی و ۸ عدد ریلز</span>
+                                    </td>
+                                    <td class="p-4 text-lg font-bold text-purple-600">
+                                        <span class="editable-number budget-item" data-field="budget-social" data-original="150000000">۱۵۰,۰۰۰,۰۰۰</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="budget-percent bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-sm font-bold" data-field="budget-social">۲۲.۷٪</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-yellow-50 transition">
+                                    <td class="p-4 font-bold">۲</td>
+                                    <td class="p-4 font-bold">طراحی و توسعه وب‌سایت</td>
+                                    <td class="p-4 text-sm text-gray-600">
+                                        <span class="editable-text" data-field="desc-website">۸ صفحه + رزرو آنلاین و قابلیت اتصال به CRM</span>
+                                    </td>
+                                    <td class="p-4 text-lg font-bold text-blue-600">
+                                        <span class="editable-number budget-item" data-field="budget-website" data-original="280000000">۲۸۰,۰۰۰,۰۰۰</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="budget-percent bg-blue-100 text-blue-700 px-3 py-1 rounded-full text-sm font-bold" data-field="budget-website">۴۲.۴٪</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-yellow-50 transition">
+                                    <td class="p-4 font-bold">۳</td>
+                                    <td class="p-4 font-bold">عکاسی حرفه‌ای</td>
+                                    <td class="p-4 text-sm text-gray-600">
+                                        <span class="editable-text" data-field="desc-photo">۱ جلسه و ۲۰ تا عکس</span>
+                                    </td>
+                                    <td class="p-4 text-lg font-bold text-pink-600">
+                                        <span class="editable-number budget-item" data-field="budget-photo" data-original="80000000">۸۰,۰۰۰,۰۰۰</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="budget-percent bg-pink-100 text-pink-700 px-3 py-1 rounded-full text-sm font-bold" data-field="budget-photo">۱۲.۱٪</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="hover:bg-yellow-50 transition">
+                                    <td class="p-4 font-bold">۴</td>
+                                    <td class="p-4 font-bold">تولید ویدیو</td>
+                                    <td class="p-4 text-sm text-gray-600">
+                                        <span class="editable-text" data-field="desc-video">۱ عدد ویدیو تیزر (بدون لوکیشن و بازیگر)</span>
+                                    </td>
+                                    <td class="p-4 text-lg font-bold text-red-600">
+                                        <span class="editable-number budget-item" data-field="budget-video" data-original="150000000">۱۵۰,۰۰۰,۰۰۰</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <span class="budget-percent bg-red-100 text-red-700 px-3 py-1 rounded-full text-sm font-bold" data-field="budget-video">۲۲.۷٪</span>
+                                    </td>
+                                </tr>
+
+                                <!-- ظرفیت آزاد -->
+                                <tr id="capacity-row" class="font-bold">
+                                    <td class="p-4 font-bold">۵</td>
+                                    <td class="p-4 font-bold">ظرفیت آزاد</td>
+                                    <td class="p-4 text-sm text-gray-600">مبلغ قابل تخصیص</td>
+                                    <td class="p-4 text-lg font-bold">
+                                        <span id="capacity-amount" class="capacity-amount">۰</span>
+                                    </td>
+                                    <td class="p-4">
+                                        <span id="capacity-percent" class="capacity-percent px-3 py-1 rounded-full text-sm font-bold">۰٪</span>
+                                    </td>
+                                </tr>
+
+                                <tr class="bg-gradient-to-r from-green-100 to-emerald-100 font-bold text-lg">
+                                    <td class="p-6" colspan="3">
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-2xl">💎</span>
+                                            <span>جمع کل</span>
+                                        </div>
+                                    </td>
+                                    <td class="p-6 text-2xl text-green-700">
+                                        <span id="budget-total-calculated">۶۶۰,۰۰۰,۰۰۰</span>
+                                    </td>
+                                    <td class="p-6">
+                                        <span class="bg-green-200 text-green-800 px-4 py-2 rounded-full">۱۰۰٪</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Budget Distribution Chart -->
+                <div class="mb-8">
+                    <h3 class="font-bold text-xl mb-4">نمودار توزیع بودجه</h3>
+
+                    <div class="chart-container">
+                        <div style="height: 400px;">
+                            <canvas id="chart-budget-distribution"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 mt-12">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-gray-400">© ۱۴۰۳ - شرکت یکتانت - پرپوزال تبلیغاتی رستوران سینسیر</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            once: true,
+            offset: 100
+        });
+
+        // Snackbar function
+        function showSnackbar(message) {
+            const bar = document.getElementById('snackbar');
+            if (!bar) return;
+            bar.textContent = message;
+            bar.classList.add('show');
+            setTimeout(() => bar.classList.remove('show'), 2000);
+        }
+
+        // Editable Text Elements
+        function initEditableElements() {
+            document.querySelectorAll('.editable-text').forEach(el => {
+                const field = el.dataset.field;
+                if (!field) return;
+
+                // Set initial value from localStorage
+                const saved = localStorage.getItem('proposal_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    if (data[field]) {
+                        el.textContent = data[field];
+                    }
+                }
+
+                // Add visual indicator
+                el.style.cursor = 'text';
+
+                // Make editable on click
+                el.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (this.getAttribute('contenteditable') !== 'true') {
+                        this.setAttribute('contenteditable', 'true');
+                        this.focus();
+
+                        // Select all text
+                        const range = document.createRange();
+                        range.selectNodeContents(this);
+                        const sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                    }
+                });
+
+                // Save on blur
+                el.addEventListener('blur', function() {
+                    this.setAttribute('contenteditable', 'false');
+                    const value = this.textContent.trim();
+
+                    // Save to localStorage
+                    const saved = localStorage.getItem('proposal_data') || '{}';
+                    const data = JSON.parse(saved);
+                    data[field] = value;
+                    localStorage.setItem('proposal_data', JSON.stringify(data));
+
+                    // Update all elements with same field
+                    document.querySelectorAll(`[data-field="${field}"]`).forEach(otherEl => {
+                        if (otherEl !== this) {
+                            otherEl.textContent = value;
+                        }
+                    });
+
+                    showSnackbar('متن به‌روزرسانی شد');
+                });
+
+                // Save on Enter
+                el.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.blur();
+                    }
+                });
+            });
+        }
+
+        // Helper function to convert Persian digits to English
+        function persianToEnglish(str) {
+            const persianDigits = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+            const englishDigits = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+            let result = str;
+            for (let i = 0; i < 10; i++) {
+                result = result.replace(new RegExp(persianDigits[i], 'g'), englishDigits[i]);
+            }
+            return result;
+        }
+
+        // Helper function to format number with commas (real-time)
+        function formatNumberWithCommas(value) {
+            // Remove all non-digit characters
+            const cleanValue = value.toString().replace(/[^\d]/g, '');
+            if (!cleanValue) return '';
+
+            // Add commas every 3 digits from right
+            return cleanValue.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        }
+
+        // Editable Numbers
+        function initEditableNumbers() {
+            document.querySelectorAll('.editable-number').forEach(element => {
+                // Add visual indicator
+                element.style.cursor = 'text';
+                element.classList.add('editable-number-active');
+
+                // Store original value
+                let originalValue = element.textContent.trim();
+
+                // Make editable on click
+                element.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    if (this.getAttribute('contenteditable') !== 'true') {
+                        this.setAttribute('contenteditable', 'true');
+                        originalValue = this.textContent.trim();
+
+                        // Get raw number (remove commas and convert Persian to English)
+                        let rawValue = this.textContent.trim();
+                        rawValue = persianToEnglish(rawValue);
+                        rawValue = rawValue.replace(/,/g, '');
+
+                        // Set raw value for editing
+                        this.textContent = rawValue;
+                        this.focus();
+
+                        // Select all text
+                        const range = document.createRange();
+                        range.selectNodeContents(this);
+                        const sel = window.getSelection();
+                        sel.removeAllRanges();
+                        sel.addRange(range);
+                    }
+                });
+
+                // Real-time formatting while typing
+                element.addEventListener('input', function() {
+                    let value = this.textContent.trim();
+
+                    // Convert Persian to English
+                    value = persianToEnglish(value);
+
+                    // Remove all non-digit characters
+                    value = value.replace(/[^\d]/g, '');
+
+                    // Format with commas
+                    const formatted = formatNumberWithCommas(value);
+
+                    // Update display (but keep cursor position)
+                    const selection = window.getSelection();
+                    const range = selection.getRangeAt(0);
+                    const cursorPosition = range.startOffset;
+
+                    this.textContent = formatted;
+
+                    // Restore cursor position (approximate)
+                    try {
+                        const newRange = document.createRange();
+                        const textNode = this.firstChild;
+                        if (textNode) {
+                            const newPosition = Math.min(cursorPosition, textNode.textContent.length);
+                            newRange.setStart(textNode, newPosition);
+                            newRange.setEnd(textNode, newPosition);
+                            selection.removeAllRanges();
+                            selection.addRange(newRange);
+                        }
+                    } catch (e) {
+                        // If cursor restoration fails, just set cursor to end
+                        const range = document.createRange();
+                        range.selectNodeContents(this);
+                        range.collapse(false);
+                        selection.removeAllRanges();
+                        selection.addRange(range);
+                    }
+                });
+
+                // Save on blur
+                element.addEventListener('blur', function() {
+                    this.setAttribute('contenteditable', 'false');
+                    const field = this.getAttribute('data-field');
+                    let value = this.textContent.trim();
+
+                    // Convert Persian to English
+                    value = persianToEnglish(value);
+
+                    // Remove commas and non-digit characters
+                    value = value.replace(/,/g, '').replace(/[^\d]/g, '');
+
+                    if (value && !isNaN(value) && value !== '') {
+                        const numValue = parseFloat(value);
+                        const formatted = numValue.toLocaleString('fa-IR');
+
+                        // Update all elements with same field
+                        document.querySelectorAll(`[data-field="${field}"]`).forEach(el => {
+                            if (el !== this) {
+                                el.textContent = formatted;
+                            } else {
+                                this.textContent = formatted;
+                            }
+                        });
+
+                        // Update budget total if needed
+                        if (field && (field.startsWith('budget-') || element.classList.contains('budget-item'))) {
+                            if (typeof updateBudgetTotal === 'function') {
+                                setTimeout(() => {
+                                    updateBudgetTotal();
+                                }, 100);
+                            }
+                        }
+
+                        showSnackbar('عدد به‌روزرسانی شد');
+                    }
+                });
+
+                // Save on Enter
+                element.addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') {
+                        e.preventDefault();
+                        this.blur();
+                    }
+                });
+            });
+        }
+
+        // Chart.js Colors
+        const YEKTANET_COLORS = {
+            gold: '#fed813',
+            saffron: '#f3c42e',
+            jet: '#323232',
+            smoke: '#f2f2f2',
+            keppel: '#2fbea8',
+            aqua: '#3de19c',
+            honey: '#ffb113',
+            pink: '#fd6f95',
+            blue: '#17b1fd',
+            blueberry: '#797efe',
+            slate: '#8763f8',
+            lavender: '#b68cf8'
+        };
+
+        // Budget Distribution Chart
+        const ChartTemplates = {
+            budgetDistribution: {
+                type: 'doughnut',
+                data: {
+                    labels: [
+                        'محتوای اینستاگرام',
+                        'طراحی وب‌سایت',
+                        'عکاسی حرفه‌ای',
+                        'تولید ویدیو'
+                    ],
+                    datasets: [{
+                        data: [150, 280, 80, 150],
+                        backgroundColor: [
+                            YEKTANET_COLORS.saffron,
+                            YEKTANET_COLORS.keppel,
+                            YEKTANET_COLORS.pink,
+                            YEKTANET_COLORS.blue
+                        ],
+                        borderWidth: 3,
+                        borderColor: '#fff',
+                        hoverOffset: 15
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            rtl: true,
+                            labels: {
+                                padding: 15,
+                                usePointStyle: true,
+                                font: { size: 12 },
+                                generateLabels: function(chart) {
+                                    const data = chart.data;
+                                    return data.labels.map((label, i) => {
+                                        const value = data.datasets[0].data[i];
+                                        const total = data.datasets[0].data.reduce((a, b) => a + b, 0);
+                                        const percent = ((value / total) * 100).toFixed(1);
+                                        return {
+                                            text: `${label} (${percent}%)`,
+                                            fillStyle: data.datasets[0].backgroundColor[i],
+                                            hidden: false,
+                                            index: i
+                                        };
+                                    });
+                                }
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(50, 50, 50, 0.95)',
+                            padding: 12,
+                            callbacks: {
+                                label: function(context) {
+                                    const value = context.parsed;
+                                    return value.toLocaleString('fa-IR') + ' میلیون تومان';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        // Initialize Charts
+        function initCharts() {
+            // Check if Chart.js is loaded
+            if (typeof Chart === 'undefined') {
+                console.error('❌ Chart.js is not loaded!');
+                return;
+            }
+
+            // Set Chart.js defaults
+            Chart.defaults.font = Chart.defaults.font || {};
+            Chart.defaults.font.family = 'Sahel, IRANSans, sans-serif';
+            Chart.defaults.color = '#323232';
+
+            console.log('📊 Initializing charts...');
+
+            // Budget Distribution Chart
+            const budgetCtx = document.getElementById('chart-budget-distribution');
+            if (budgetCtx) {
+                try {
+                    const existingChart = Chart.getChart(budgetCtx);
+                    if (existingChart) {
+                        existingChart.destroy();
+                    }
+                    new Chart(budgetCtx, ChartTemplates.budgetDistribution);
+                    console.log('✅ Budget Distribution Chart initialized');
+                } catch (e) {
+                    console.error('❌ Error initializing Budget Distribution Chart:', e);
+                }
+            } else {
+                console.warn('⚠️ chart-budget-distribution element not found');
+            }
+        }
+
+        // Dynamic Budget Calculation
+        function extractNumber(text) {
+            if (!text) return 0;
+            let cleanText = persianToEnglish(text.toString());
+            cleanText = cleanText.replace(/,/g, '').replace(/[^\d.]/g, '');
+            const num = parseFloat(cleanText);
+            return isNaN(num) ? 0 : num;
+        }
+
+        function updateBudgetTotal() {
+            const totalBudgetElement = document.getElementById('total-budget-display') ||
+                                      document.querySelector('[data-field="total-budget"]');
+            let TOTAL_BUDGET = 660000000; // Default: 660 million
+
+            if (totalBudgetElement) {
+                TOTAL_BUDGET = extractNumber(totalBudgetElement.textContent);
+                if (TOTAL_BUDGET === 0) {
+                    TOTAL_BUDGET = 660000000; // Fallback to default
+                }
+            }
+
+            // Get all budget items
+            const budgetItems = document.querySelectorAll('.budget-item');
+            let totalSpent = 0;
+
+            // Calculate total spent
+            budgetItems.forEach(item => {
+                const value = extractNumber(item.textContent);
+                totalSpent += value;
+            });
+
+            // Calculate capacity (available budget)
+            const capacity = TOTAL_BUDGET - totalSpent;
+
+            // Update capacity amount
+            const capacityAmount = document.getElementById('capacity-amount');
+            if (capacityAmount) {
+                capacityAmount.textContent = capacity.toLocaleString('fa-IR');
+            }
+
+            // Update capacity percent
+            const capacityPercent = document.getElementById('capacity-percent');
+            if (capacityPercent) {
+                const percent = TOTAL_BUDGET > 0 ? ((capacity / TOTAL_BUDGET) * 100).toFixed(1) : '0.0';
+                capacityPercent.textContent = percent + '٪';
+
+                // Update color based on capacity value
+                capacityPercent.className = 'capacity-percent px-3 py-1 rounded-full text-sm font-bold';
+                const capacityRow = document.getElementById('capacity-row');
+
+                if (capacity > 0) {
+                    capacityPercent.classList.add('bg-yellow-100', 'text-yellow-700');
+                    if (capacityRow) {
+                        capacityRow.classList.remove('bg-red-50', 'bg-green-50');
+                        capacityRow.classList.add('bg-yellow-50');
+                    }
+                    if (capacityAmount) {
+                        capacityAmount.className = 'capacity-amount text-yellow-700';
+                    }
+                } else if (capacity < 0) {
+                    capacityPercent.classList.add('bg-red-100', 'text-red-700');
+                    if (capacityRow) {
+                        capacityRow.classList.remove('bg-yellow-50', 'bg-green-50');
+                        capacityRow.classList.add('bg-red-50');
+                    }
+                    if (capacityAmount) {
+                        capacityAmount.className = 'capacity-amount text-red-700';
+                    }
+                } else {
+                    capacityPercent.classList.add('bg-green-100', 'text-green-700');
+                    if (capacityRow) {
+                        capacityRow.classList.remove('bg-yellow-50', 'bg-red-50');
+                        capacityRow.classList.add('bg-green-50');
+                    }
+                    if (capacityAmount) {
+                        capacityAmount.className = 'capacity-amount text-green-700';
+                    }
+                }
+            }
+
+            // Update total calculated
+            const totalCalculated = document.getElementById('budget-total-calculated');
+            if (totalCalculated) {
+                totalCalculated.textContent = totalSpent.toLocaleString('fa-IR');
+            }
+
+            // Update all percentages based on TOTAL_BUDGET
+            budgetItems.forEach(item => {
+                const value = extractNumber(item.textContent);
+                const field = item.getAttribute('data-field');
+
+                if (TOTAL_BUDGET > 0 && value > 0) {
+                    const percent = ((value / TOTAL_BUDGET) * 100).toFixed(1);
+
+                    // Update percentage badge
+                    const percentElement = document.querySelector(`.budget-percent[data-field="${field}"]`);
+                    if (percentElement) {
+                        percentElement.textContent = percent + '٪';
+                    }
+                }
+            });
+
+            // Update budget chart if exists
+            const budgetChart = Chart.getChart(document.getElementById('chart-budget-distribution'));
+            if (budgetChart) {
+                const newData = Array.from(budgetItems).map(item => {
+                    return extractNumber(item.textContent);
+                });
+                budgetChart.data.datasets[0].data = newData;
+                budgetChart.update();
+            }
+        }
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Initializing Budget Page...');
+
+            // Initialize editable elements
+            initEditableElements();
+            initEditableNumbers();
+
+            // Initialize charts
+            setTimeout(() => {
+                initCharts();
+            }, 500);
+
+            // Initialize budget calculations
+            setTimeout(() => {
+                if (document.getElementById('capacity-amount') || document.querySelectorAll('.budget-item').length > 0) {
+                    updateBudgetTotal();
+                }
+            }, 1000);
+
+            // Listen for changes in budget items
+            document.addEventListener('blur', function(e) {
+                if (e.target.classList.contains('budget-item') || e.target.classList.contains('editable-number')) {
+                    setTimeout(() => {
+                        updateBudgetTotal();
+                    }, 100);
+                }
+            }, true);
+
+            console.log('✅ Budget Page initialized successfully');
+        });
+    </script>
+</body>
+</html>
