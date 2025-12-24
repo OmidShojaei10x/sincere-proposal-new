@@ -400,12 +400,17 @@
                 const field = el.dataset.field;
                 if (!field) return;
 
-                // Set initial value from localStorage
+                // Load saved value from localStorage
                 const saved = localStorage.getItem('proposal_data');
                 if (saved) {
-                    const data = JSON.parse(saved);
-                    if (data[field]) {
-                        el.textContent = data[field];
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data[field]) {
+                            el.textContent = data[field];
+                            console.log('📥 Loaded text from localStorage:', field, '=', data[field]);
+                        }
+                    } catch (e) {
+                        console.error('Error loading text from localStorage:', e);
                     }
                 }
 
@@ -438,6 +443,7 @@
                     const data = JSON.parse(saved);
                     data[field] = value;
                     localStorage.setItem('proposal_data', JSON.stringify(data));
+                    console.log('💾 Saved text to localStorage:', field, '=', value);
 
                     // Update all elements with same field
                     document.querySelectorAll(`[data-field="${field}"]`).forEach(otherEl => {
@@ -486,6 +492,25 @@
                 // Add visual indicator
                 element.style.cursor = 'text';
                 element.classList.add('editable-number-active');
+
+                const field = element.dataset.field;
+                if (!field) return;
+
+                // Load saved value from localStorage
+                const saved = localStorage.getItem('proposal_data');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        if (data[field]) {
+                            const numValue = parseFloat(data[field]);
+                            const formatted = numValue.toLocaleString('fa-IR');
+                            element.textContent = formatted;
+                            console.log('📥 Loaded from localStorage:', field, '=', formatted);
+                        }
+                    } catch (e) {
+                        console.error('Error loading from localStorage:', e);
+                    }
+                }
 
                 // Store original value
                 let originalValue = element.textContent.trim();
@@ -571,6 +596,13 @@
                     if (value && !isNaN(value) && value !== '') {
                         const numValue = parseFloat(value);
                         const formatted = numValue.toLocaleString('fa-IR');
+
+                        // Save to localStorage
+                        const saved = localStorage.getItem('proposal_data') || '{}';
+                        const data = JSON.parse(saved);
+                        data[field] = value; // Save raw number
+                        localStorage.setItem('proposal_data', JSON.stringify(data));
+                        console.log('💾 Saved to localStorage:', field, '=', value);
 
                         // Update all elements with same field
                         document.querySelectorAll(`[data-field="${field}"]`).forEach(el => {
