@@ -206,6 +206,57 @@
         .capacity-highlight {
             animation: pulse-capacity 2s infinite;
         }
+
+        /* Responsive Table */
+        @media (max-width: 768px) {
+            .budget-table-wrapper {
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                min-width: 600px;
+                font-size: 14px;
+            }
+
+            table th,
+            table td {
+                padding: 12px 8px !important;
+            }
+
+            .budget-percent {
+                font-size: 11px !important;
+                padding: 4px 8px !important;
+            }
+
+            h1 {
+                font-size: 1.75rem !important;
+            }
+
+            h3 {
+                font-size: 1.25rem !important;
+            }
+
+            .chart-container {
+                padding: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            table {
+                font-size: 12px;
+            }
+
+            table th,
+            table td {
+                padding: 8px 4px !important;
+            }
+
+            .editable-number,
+            .editable-text {
+                font-size: 13px;
+            }
+        }
     </style>
 
     <!-- Tailwind Custom Config -->
@@ -234,14 +285,14 @@
 <body class="font-sans bg-yektanet-smoke text-yektanet-jet antialiased" style="font-family: 'Sahel', sans-serif; direction: rtl;">
 
     <!-- Header -->
-    <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-8">
+    <header class="bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 text-white py-6 md:py-8">
         <div class="container mx-auto px-4">
-            <div class="flex items-center justify-between mb-6">
-                <img src="assets/images/logo/yektanet-logo.svg" alt="Yektanet" class="h-16">
-                <img src="assets/images/sincere/sincere-logo.png" alt="Sincere" class="h-16">
+            <div class="flex items-center justify-between mb-4 md:mb-6">
+                <img src="assets/images/logo/yektanet-logo.svg" alt="Yektanet" class="h-10 md:h-16">
+                <img src="assets/images/sincere/sincere-logo.png" alt="Sincere" class="h-10 md:h-16">
             </div>
             <div class="text-center">
-                <h1 class="text-4xl md:text-5xl font-bold mb-4">بودجه‌بندی کامل و تفصیلی</h1>
+                <h1 class="text-2xl md:text-4xl lg:text-5xl font-bold mb-4">بودجه‌بندی کامل و تفصیلی</h1>
             </div>
         </div>
     </header>
@@ -254,7 +305,7 @@
                 <div class="mb-8">
                     <h3 class="font-bold text-xl mb-4">جدول تفصیلی بودجه</h3>
 
-                    <div class="overflow-x-auto">
+                    <div class="overflow-x-auto budget-table-wrapper">
                         <table class="w-full border-collapse">
                             <thead>
                                 <tr class="bg-gradient-to-r from-yellow-400 to-amber-500 text-white">
@@ -359,7 +410,7 @@
                     <h3 class="font-bold text-xl mb-4">نمودار توزیع بودجه</h3>
 
                     <div class="chart-container">
-                        <div style="height: 400px;">
+                        <div style="height: 300px;" class="md:h-96">
                             <canvas id="chart-budget-distribution"></canvas>
                         </div>
                     </div>
@@ -681,12 +732,12 @@
                     maintainAspectRatio: false,
                     plugins: {
                         legend: {
-                            position: 'right',
+                            position: window.innerWidth < 768 ? 'bottom' : 'right',
                             rtl: true,
                             labels: {
-                                padding: 15,
+                                padding: window.innerWidth < 768 ? 10 : 15,
                                 usePointStyle: true,
-                                font: { size: 12 },
+                                font: { size: window.innerWidth < 768 ? 10 : 12 },
                                 generateLabels: function(chart) {
                                     const data = chart.data;
                                     return data.labels.map((label, i) => {
